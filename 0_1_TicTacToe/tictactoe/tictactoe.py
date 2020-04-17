@@ -98,30 +98,49 @@ def utility(board):
     return 0
 
 
-def minimax(board):
+def minimax(board, alpha=float("-inf"), beta=float("inf")):
     """
     Returns the optimal action for the current player on the board.
     """
     if terminal(board):
         return None
 
-    factor = 1 if player(board) == "X" else -1
-    optimum = float("-inf")
+    optimum = float("-inf") if player(board) == "X" else float("inf")
 
     for action in actions(board):
         new_state = result(board, action)
 
         if terminal(new_state):
-            util = factor * utility(new_state)
+            util = utility(new_state)
         else:
-            util = factor * utility(result(new_state, minimax(new_state)))
+            util = utility(result(new_state, minimax(new_state, alpha, beta)))
 
-        if util == 1:
+        # If the game is won, no further search is necessary (action is already optimal)
+        if player(board) == "X":
+            if util == 1:
+                return action
+        elif util == -1:
             return action
 
-        if util > optimum:
+        # If X moves
+        # The action yielding the optimal outcome so far is updated, and so is alpha
+        if player(board) == "X":
+            if util > optimum:
+                optimum = util
+                optimal_action = action
+                alpha = max(alpha, optimum)
+                if beta <= alpha:
+                    break
+
+        # If O moves
+        # The action yielding the optimal outcome so far is updated, and so is beta
+        elif util < optimum:
             optimum = util
             optimal_action = action
+            beta = min(beta, optimum)
+            if beta <= alpha:
+                break
+
     return optimal_action
 
 
