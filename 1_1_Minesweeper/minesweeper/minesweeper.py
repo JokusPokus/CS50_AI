@@ -239,9 +239,7 @@ class MinesweeperAI():
         and self.moves_made, but should not modify any of those values.
         """
         if len(self.safes) > len(self.moves_made):
-            move = choice(tuple(self.safes.difference(self.moves_made)))
-            print("Safe move:", move)
-            return move
+            return choice(tuple(self.safes.difference(self.moves_made)))
 
         return None
 
@@ -261,6 +259,4 @@ class MinesweeperAI():
         if not candidates:
             return None
 
-        move = choice(tuple(candidates))
-        print("Random move:", move)
-        return move
+        return choice(tuple(candidates))
