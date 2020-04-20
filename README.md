@@ -13,19 +13,23 @@ The projects belong to the following topics:
 
 ***
 Here are some descriptions and links for the individual projects:
-
+***
 ACTORS:
 
 https://cs50.harvard.edu/ai/projects/0/degrees/
 
 According to the Six Degrees of Kevin Bacon game, anyone in the Hollywood film industry can be connected to Kevin Bacon within six steps, where each step consists of finding a film that two actors both starred in. Here, I wrote a program that determines how many “degrees of separation” apart two actors are.
 
+Can be run by executing `python degrees.py size`, where `size` is the directory of the chosen dataset (can be `small` for quick results or `large` for a greater choice of actors and actresses).
+***
 TICTACTOE:
 
 https://cs50.harvard.edu/ai/projects/0/tictactoe/
 
 Using a Minimax algorithm with Alpha Beta Pruning, I implemented an AI to play Tic-Tac-Toe optimally.
 
+Can be run by executing `python runner.py`
+***
 KNIGHTS:
 
 https://cs50.harvard.edu/ai/projects/1/knights/
@@ -34,6 +38,8 @@ In a Knights and Knaves puzzle, the following information is given: Each charact
 
 Here, I wrote a program that can solve such logical puzzles.
 
+Can be run by executing `python puzzle.py`
+***
 MINESWEEPER:
 
 https://cs50.harvard.edu/ai/projects/1/minesweeper/
@@ -42,6 +48,8 @@ Minesweeper is a puzzle game that consists of a grid of cells, where some of the
 
 Here, I implemented an intelligent agent to play Minesweeper optimally.
 
+Can be run by executing `python runner.py`
+***
 PAGERANK:
 
 https://cs50.harvard.edu/ai/projects/2/pagerank/
@@ -49,3 +57,5 @@ https://cs50.harvard.edu/ai/projects/2/pagerank/
 When search engines like Google display search results, they do so by placing more “important” and higher-quality pages higher in the search results than less important pages. To determine a site's importance, the PageRank algorithm was created by Google’s co-founders. In PageRank’s algorithm, a website is more important if it is linked to by other important websites, and links from less important websites have their links weighted less. 
 
 Here, I implement an AI to calculate PageRank in two variations.
+
+Can be run by executing `python pagerank.py corpus`, where `corpus` is one of the provided sets of html files.
