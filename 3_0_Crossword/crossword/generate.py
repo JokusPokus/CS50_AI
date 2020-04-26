@@ -226,18 +226,36 @@ class CrosswordCreator():
         The first value in the list, for example, should be the one
         that rules out the fewest values among the neighbors of `var`.
         """
-        return list(self.domains[var])
+        domain = []
+        for x_val in self.domains[var]:
+            n_elim = 0
+            for var2 in self.crossword.neighbors(var):
+                if var2 not in assignment:
+                    x_ind, y_ind = self.overlap_indices(var, var2)
+                    x_letter = x_val[x_ind]
+                    for y_val in self.domains[var2]:
+                        if y_val[y_ind] != x_letter:
+                            n_elim += 1
+            domain += [(n_elim, x_val)]
+
+        domain.sort()
+        return [tup[1] for tup in domain]
 
     def select_unassigned_variable(self, assignment):
         """
         Return an unassigned variable not already part of `assignment`.
         Choose the variable with the minimum number of remaining values
-        in its domain. If there is a tie, choose the variable with the highest
-        degree. If there is a tie, any of the tied variables are acceptable
+        in its domain. If there is a tie, any of the tied variables are acceptable
         return values.
         """
-        unassigned = set(self.crossword.variables).difference(set(assignment.keys()))
-        return random.choice(tuple(unassigned))
+        # Candidates are variables that are not yet assigned
+        unassigned = list(self.crossword.variables.difference(set(assignment.keys())))
+
+        # Get list of candidates together with their number of remaining variables.
+        unassigned = [(len(self.domains[candidate]), candidate) for candidate in unassigned]
+
+        # Return candidate with smallest number of remaining variables
+        return min(unassigned, key=lambda tup: tup[0])[1]
 
     def backtrack(self, assignment):
         """
