@@ -8,6 +8,7 @@ The projects belong to the following topics:
 0. Search: Actors, TicTacToe
 1. Knowledge: Knights, Minesweeper
 2. Uncertainty: PageRank
+3. Optimization: Crossword
 
 ...tbd...(work in progress)
 
@@ -59,3 +60,14 @@ When search engines like Google display search results, they do so by placing mo
 Here, I implement an AI to calculate PageRank in two variations.
 
 Can be run by executing `python pagerank.py corpus`, where `corpus` is one of the provided sets of html files.
+***
+CROSSWORD:
+
+https://cs50.harvard.edu/ai/projects/3/crossword/
+
+How might you go about generating a crossword puzzle? Given the structure of a crossword puzzle (i.e., which squares of the grid are meant to be filled in with a letter), and a list of words to use, the problem becomes one of choosing which words should go in each vertical or horizontal sequence of squares. We can model this sort of problem as a constraint satisfaction problem. Each sequence of squares is one variable, for which we need to decide on its value (which word in the domain of possible words will fill in that sequence). 
+
+Here, I implement an AI to solve such a puzzle as fast as possible, making use of heuristics.
+
+Can be run by executing `python generate.py data/structure data/words picture.png`, where `structure` is the structure of the board to be filled out, `words` contains the available words, and `picture.png` is the name of the output file displaying the solved puzzle.
+
