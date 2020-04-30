@@ -7,10 +7,7 @@ def general_rules(person):
     """
     is_knight = person + "Knight"
     is_knave = person + "Knave"
-    return And(
-        Or(eval(is_knight), eval(is_knave)),
-        Not(And(eval(is_knight), eval(is_knave))),
-    )
+    return Biconditional(eval(is_knight), Not(eval(is_knave)))
 
 
 def sentence_true_or_false(person, sentence):
@@ -18,13 +15,7 @@ def sentence_true_or_false(person, sentence):
     A sentence is false iff its author is a Knave.
     """
     is_knight = person + "Knight"
-    is_knave = person + "Knave"
-    return And(
-        # person is Knight, sentence is correct
-        Biconditional(eval(is_knight), sentence),
-        # person is Knave, sentence is incorrect
-        Biconditional(eval(is_knave), Not(sentence))
-    )
+    return Biconditional(eval(is_knight), sentence)
 
 
 # Simple propositions that will be tested below
@@ -65,12 +56,10 @@ knowledge1 = And(
 # A says "We are the same kind."
 sentenceA = And(
     Biconditional(AKnight, BKnight),
-    Biconditional(AKnave, BKnave)
 )
 # B says "We are of different kinds."
 sentenceB = And(
     Biconditional(AKnight, BKnave),
-    Biconditional(AKnave, BKnight)
 )
 
 knowledge2 = And(
