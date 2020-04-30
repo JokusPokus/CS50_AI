@@ -54,13 +54,10 @@ knowledge1 = And(
 # *********************************************
 # Puzzle 2
 # A says "We are the same kind."
-sentenceA = And(
-    Biconditional(AKnight, BKnight),
-)
+sentenceA = Biconditional(AKnight, BKnight)
+
 # B says "We are of different kinds."
-sentenceB = And(
-    Biconditional(AKnight, BKnave),
-)
+sentenceB = Biconditional(AKnight, BKnave)
 
 knowledge2 = And(
     general_rules("A"),
