@@ -101,7 +101,7 @@ class NimAI():
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
-        raise NotImplementedError
+        return self.q.get((tuple(state), action), 0)
 
     def update_q_value(self, state, action, old_q, reward, future_rewards):
         """
@@ -118,7 +118,11 @@ class NimAI():
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
-        raise NotImplementedError
+        # Compute updated Q value
+        new_q = old_q + self.alpha * (reward + future_rewards - old_q)
+
+        # Update Q dictionary
+        self.q[tuple(state), action] = new_q
 
     def best_future_reward(self, state):
         """
@@ -130,7 +134,12 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        raise NotImplementedError
+        available = Nim.available_actions(state)
+
+        if not available:
+            return 0
+
+        return max([self.get_q_value(state, action) for action in available])
 
     def choose_action(self, state, epsilon=True):
         """
@@ -147,7 +156,19 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        raise NotImplementedError
+        available = Nim.available_actions(state)
+
+        # If the epsilon-greedy algorithm is requested,
+        # with probability self.epsilon, a random available action is returned
+        if epsilon:
+            explore = (random.random() <= self.epsilon)
+            if explore:
+                return random.choice(list(available))
+
+        # Sort all actions by their q value and return the optimal action
+        # [-1] --> highest Q value
+        # [1] --> only action is returned, without Q value
+        return sorted([(self.get_q_value(state, action), action) for action in available])[-1][1]
 
 
 def train(n):
